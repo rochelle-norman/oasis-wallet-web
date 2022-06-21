@@ -1,4 +1,4 @@
-import { NoTranslate } from 'app/components/NoTranslate'
+import { NoCopyNoTranslate } from 'app/components/NoCopyNoTranslate'
 import { Box, Grid, ResponsiveContext, Text } from 'grommet'
 import * as React from 'react'
 import { useContext } from 'react'
@@ -40,9 +40,9 @@ function MnemonicWord(props: WordProp) {
         <Text style={noSelect}>{props.id}.</Text>
       </Box>
       <Box>
-        <NoTranslate>
+        <NoCopyNoTranslate>
           <strong style={keepWhitespace}>{props.hidden ? '' : props.word}</strong>
-        </NoTranslate>
+        </NoCopyNoTranslate>
       </Box>
     </Box>
   )
@@ -67,7 +67,7 @@ export function MnemonicGrid({ mnemonic, highlightedIndex: hilightedIndex, hidde
     size === 'large' ? ['1fr', '1fr', '1fr', '1fr'] : `${maxEnglishLength + numberDotSpaceLength + 2}ch`
 
   return (
-    <NoTranslate>
+    <NoCopyNoTranslate>
       <Grid columns={columnSize} data-testid="mnemonic-grid">
         {mnemonic.map((word, index) => (
           <MnemonicWord
@@ -79,6 +79,6 @@ export function MnemonicGrid({ mnemonic, highlightedIndex: hilightedIndex, hidde
           />
         ))}
       </Grid>
-    </NoTranslate>
+    </NoCopyNoTranslate>
   )
 }
