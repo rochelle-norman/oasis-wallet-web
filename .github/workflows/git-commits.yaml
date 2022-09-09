@@ -1,0 +1,14 @@
+name: Lint git commits
+
+on:
+  push:
+    branches: [stable, master]
+  pull_request:
+    branches: [stable, master]
+
+jobs:
+  large_commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: ./.github/large-commits.sh
