@@ -23,6 +23,7 @@ import {
   Money,
 } from 'grommet-icons/icons'
 import * as React from 'react'
+import styled from 'styled-components'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
@@ -30,6 +31,12 @@ import { Link, NavLink, useHistory, useLocation } from 'react-router-dom'
 import { ThemeSwitcher } from '../ThemeSwitcher'
 import logotype from '../../../../public/logo192.png'
 import { languageLabels } from '../../../locales/i18n'
+
+const StyledSidebar = styled(Sidebar)`
+  & > * {
+    min-height: auto !important;
+  }
+`
 
 const SidebarTooltip = (props: { children: React.ReactNode; isActive: boolean; label: string }) => {
   const size = useContext(ResponsiveContext)
@@ -174,6 +181,7 @@ const SidebarFooter = (props: SidebarFooterProps) => {
   const size = props.size
   const dispatch = useDispatch()
   const history = useHistory()
+  const isMediumSize = size === 'medium'
 
   const setLanguage = (ln: string) => {
     i18n.changeLanguage(ln)
@@ -193,9 +201,11 @@ const SidebarFooter = (props: SidebarFooterProps) => {
         needsWalletOpen={true}
         onClick={() => logout()}
       />
-
       <SidebarTooltip label="Language" isActive={false}>
-        <Box pad="small" align={size === 'medium' ? 'center' : 'start'}>
+        <Box
+          pad={{ vertical: 'small', left: isMediumSize ? 'none' : 'medium' }}
+          align={isMediumSize ? 'center' : 'start'}
+        >
           <Menu
             hoverIndicator={false}
             dropProps={{ align: { bottom: 'bottom', left: 'left' } }}
@@ -205,7 +215,7 @@ const SidebarFooter = (props: SidebarFooterProps) => {
               <Box pad="small">
                 <Language />
               </Box>
-              {size !== 'medium' && (
+              {!isMediumSize && (
                 <>
                   <Box pad="small" flex="grow">
                     <Text>Language</Text>
@@ -275,7 +285,9 @@ export function Sidebar() {
       footer={<SidebarFooter size={size} />}
       pad={{ left: 'none', right: 'none', vertical: 'medium' }}
       gap="small"
+      height={{ min: '100%', max: '100vh' }}
       width={size === 'medium' ? undefined : '220px'}
+      overflow="auto"
     >
       <SidebarMenuItems />
     </GSidebar>
@@ -329,10 +341,10 @@ export function Navigation() {
           animation="slide"
           responsive={false}
         >
-          <Sidebar />
+          <StyledSidebar />
         </Layer>
       )}
-      {size !== 'small' && <Sidebar />}
+      {size !== 'small' && <StyledSidebar />}
     </>
   )
 }

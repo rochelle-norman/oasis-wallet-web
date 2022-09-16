@@ -26,7 +26,8 @@ import { ModalProvider } from './components/Modal'
 import { useRouteRedirects } from './useRouteRedirects'
 
 const AppMain = styled(Main)`
-  /* position: relative; */
+  display: block;
+  max-height: 100vh;
 `
 
 export function App() {
