@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { Text } from 'grommet'
 import { StringifiedBigInt } from 'types/StringifiedBigInt'
 import { formatBaseUnitsAsRose } from 'app/lib/helpers'
+import BigNumber from 'bignumber.js'
 
 export interface AmountFormatterProps {
   amount: StringifiedBigInt | null
@@ -32,6 +33,9 @@ export const AmountFormatter = memo((props: AmountFormatterProps) => {
     maximumFractionDigits: props.maximumFractionDigits ?? 15,
   })
 
+  const decimalSeparator = BigNumber.config().FORMAT?.decimalSeparator
+  const [amountInteger, amountFraction] = amountString.split(decimalSeparator!)
+
   const tickerProps = props.smallTicker
     ? {
         size: 'xsmall',
@@ -42,7 +46,13 @@ export const AmountFormatter = memo((props: AmountFormatterProps) => {
 
   return (
     <span>
-      {amountString}
+      {amountInteger}
+      {amountFraction && (
+        <>
+          {decimalSeparator}
+          <small style={{ lineHeight: 1 }}>{amountFraction}</small>
+        </>
+      )}
       {!props.hideTicker && (
         <Text margin={{ left: 'xxsmall' }} size={props.size} {...tickerProps}>
           {ticker}
