@@ -33,6 +33,7 @@ export const AmountFormatter = memo((props: AmountFormatterProps) => {
     maximumFractionDigits: props.maximumFractionDigits ?? 15,
   })
 
+  // TODO fix bignum types
   const decimalSeparator = BigNumber.config().FORMAT?.decimalSeparator
   const [amountInteger, amountFraction] = amountString.split(decimalSeparator!)
 
