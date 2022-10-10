@@ -146,6 +146,16 @@ yarn lint
 yarn lint:fix
 ```
 
+#### Git Commit Content
+
+- Limit commits to the most granular change that makes sense. This means, use
+  frequent small commits rather than infrequent large commits
+- Additionally make a separate commit for:
+  - swagger.yml + openapi-generator-cli so changes aren't lost in the long diff
+  - renaming/moving files with minimal changes so git can follow renames
+  - moving a code block out of a file before changing it
+  - unintuitive edge-cases caught in review
+
 #### Git Commit Messages
 
 A quick summary:
