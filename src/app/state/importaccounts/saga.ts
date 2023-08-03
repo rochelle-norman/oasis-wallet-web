@@ -1,5 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import TransportWebUSB from '@ledgerhq/hw-transport-webusb'
+import TransportBluetooth from '@ledgerhq/hw-transport-web-ble'
 import * as oasis from '@oasisprotocol/client'
 import { publicKeyToAddress, uint2hex } from 'app/lib/helpers'
 import { Ledger, LedgerSigner } from 'app/lib/ledger'
@@ -25,12 +25,12 @@ function* setStep(step: ImportAccountsStep) {
 }
 
 function* getUSBTransport() {
-  const isSupported = yield* call([TransportWebUSB, TransportWebUSB.isSupported])
+  const isSupported = yield* call([TransportBluetooth, TransportBluetooth.isSupported])
   if (!isSupported) {
-    throw new WalletError(WalletErrors.USBTransportNotSupported, 'TransportWebUSB unsupported')
+    throw new WalletError(WalletErrors.USBTransportNotSupported, 'TransportBluetooth unsupported')
   }
   try {
-    const transport = yield* call([TransportWebUSB, TransportWebUSB.create])
+    const transport = yield* call([TransportBluetooth, TransportBluetooth.create])
     return transport
   } catch (e: any) {
     if (e.message.match(/No device selected/)) {

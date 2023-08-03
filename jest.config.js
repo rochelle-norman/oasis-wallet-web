@@ -25,7 +25,7 @@ const config = {
     ],
   },
   transformIgnorePatterns: [
-    '/node_modules/(?!(@ledgerhq/hw-transport-webusb|cborg|grommet/es6|grommet-icons/es6)/)',
+    '/node_modules/(?!(@ledgerhq/hw-transport-webusb|@ledgerhq/hw-transport-web-ble|cborg|grommet/es6|grommet-icons/es6)/)',
   ],
   testMatch: [
     '<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}',

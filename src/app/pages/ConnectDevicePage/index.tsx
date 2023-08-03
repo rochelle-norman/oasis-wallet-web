@@ -50,11 +50,8 @@ export function ConnectDevicePage() {
   const handleConnect = async () => {
     setConnection('connecting')
     try {
-      const device = await requestDevice()
-      if (device) {
         setConnection('connected')
         dispatch(importAccountsActions.enumerateAccountsFromLedger())
-      }
     } catch {
       setConnection('error')
     }
