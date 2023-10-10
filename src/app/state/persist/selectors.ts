@@ -7,6 +7,7 @@ export const selectSlice = (state: RootState) => state.persist || getInitialStat
 
 export const selectLoading = createSelector([selectSlice], state => state.loading)
 export const selectEnteredWrongPassword = createSelector([selectSlice], state => state.enteredWrongPassword)
+export const selectPasswordCheckPass = createSelector([selectSlice], state => state.passwordCheckPass)
 export const selectNeedsPassword = createSelector(
   [selectSlice],
   state => state.hasPersistedProfiles && !state.stringifiedEncryptionKey,

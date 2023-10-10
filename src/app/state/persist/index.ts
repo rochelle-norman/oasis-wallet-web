@@ -29,6 +29,7 @@ export function getInitialState(): PersistState {
     loading: false,
     stringifiedEncryptionKey: localStorage.getItem(STORAGE_FIELD) ? undefined : 'skipped',
     enteredWrongPassword: false,
+    passwordCheckPass: false,
   }
 }
 
@@ -90,6 +91,15 @@ const persistSlice = createSlice({
     },
     updatePasswordAsync(state, action: PayloadAction<UpdatePasswordPayload>) {
       return
+    },
+    checkPasswordAsync(state, action: PayloadAction<{ currentPassword: string }>) {
+      return
+    },
+    setPasswordCheckPass(state) {
+      state.passwordCheckPass = true
+    },
+    resetPasswordCheckPass(state) {
+      state.passwordCheckPass = false
     },
   },
 })

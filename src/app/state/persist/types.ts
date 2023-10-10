@@ -36,6 +36,7 @@ export interface PersistState {
   loading: boolean
   stringifiedEncryptionKey: undefined | 'skipped' | StringifiedKeyWithSalt
   enteredWrongPassword: boolean
+  passwordCheckPass: boolean
 }
 
 export interface PersistedRootState extends Pick<RootState, 'contacts' | 'theme' | 'wallet' | 'network'> {}

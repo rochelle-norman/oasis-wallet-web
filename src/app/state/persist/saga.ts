@@ -41,6 +41,8 @@ function* handleAsyncPersistActions(action: AnyAction) {
     yield* call(lockAsync, action)
   } else if (persistActions.deleteProfileAsync.match(action)) {
     yield* call(deleteProfileAsync, action)
+  } else if (persistActions.checkPasswordAsync.match(action)) {
+    yield* call(checkPasswordAsync, action)
   } else if (persistActions.updatePasswordAsync.match(action)) {
     yield* call(updatePasswordAsync, action)
   } else if (persistActions.setUnlockedRootState.match(action)) {
@@ -91,13 +93,25 @@ function* unlockAsync(action: ReturnType<typeof persistActions.unlockAsync>) {
   }
 }
 
-function* updatePasswordAsync(action: ReturnType<typeof persistActions.updatePasswordAsync>) {
+function* handlePasswordActionAsync(
+  action:
+    | ReturnType<typeof persistActions.updatePasswordAsync>
+    | ReturnType<typeof persistActions.checkPasswordAsync>,
+) {
   const encryptedState: EncryptedString | null = window.localStorage.getItem(STORAGE_FIELD)
-  if (!encryptedState) throw new Error('Unexpected update password action while no state is locked')
+  if (!encryptedState) {
+    throw new Error('Unexpected action while no state is locked')
+  }
+
   try {
-    // used only for a current password validation, doesn't use decrypted result
+    // used only for current password validation, doesn't use decrypted result
     yield* call(decryptState, encryptedState, action.payload.currentPassword)
-    yield* put(persistActions.setPasswordAsync({ password: action.payload.password }))
+
+    if (action.type === persistActions.updatePasswordAsync.type) {
+      yield* put(persistActions.setPasswordAsync({ password: action.payload.password }))
+    } else if (action.type === persistActions.checkPasswordAsync.type) {
+      yield* put(persistActions.setPasswordCheckPass())
+    }
   } catch (error) {
     if (error instanceof PasswordWrongError) {
       yield* put(persistActions.setWrongPassword())
@@ -105,6 +119,14 @@ function* updatePasswordAsync(action: ReturnType<typeof persistActions.updatePas
       throw error
     }
   }
+}
+
+function* updatePasswordAsync(action: ReturnType<typeof persistActions.updatePasswordAsync>) {
+  yield* handlePasswordActionAsync(action)
+}
+
+function* checkPasswordAsync(action: ReturnType<typeof persistActions.checkPasswordAsync>) {
+  yield* handlePasswordActionAsync(action)
 }
 
 function* lockAsync(action: ReturnType<typeof persistActions.lockAsync>) {

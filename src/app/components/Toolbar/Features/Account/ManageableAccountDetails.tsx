@@ -1,7 +1,9 @@
 import { useContext, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import copy from 'copy-to-clipboard'
 import { Box } from 'grommet/es6/components/Box'
 import { Button } from 'grommet/es6/components/Button'
+import { Form } from 'grommet/es6/components/Form'
 import { Notification } from 'grommet/es6/components/Notification'
 import { ResponsiveContext } from 'grommet/es6/contexts/ResponsiveContext'
 import { Tab } from 'grommet/es6/components/Tab'
@@ -10,6 +12,10 @@ import { Text } from 'grommet/es6/components/Text'
 import { Copy } from 'grommet-icons/es6/icons/Copy'
 import { useTranslation } from 'react-i18next'
 import { NoTranslate } from 'app/components/NoTranslate'
+import { PasswordField } from 'app/components/PasswordField'
+import { persistActions } from 'app/state/persist'
+import { selectEnteredWrongPassword, selectPasswordCheckPass } from 'app/state/persist/selectors'
+import { preventSavingInputsToUserData } from 'app/lib/preventSavingInputsToUserData'
 import { Wallet } from '../../../../state/wallet/types'
 import { DerivationFormatter } from './DerivationFormatter'
 import { AddressBox } from '../../../AddressBox'
@@ -23,7 +29,11 @@ interface ManageableAccountDetailsProps {
 
 export const ManageableAccountDetails = ({ wallet }: ManageableAccountDetailsProps) => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const enteredWrongPassword = useSelector(selectEnteredWrongPassword)
+  const passwordCheckPass = useSelector(selectPasswordCheckPass)
   const [layerVisibility, setLayerVisibility] = useState(false)
+  const [password, setPassword] = useState('')
   const [acknowledge, setAcknowledge] = useState(false)
   const [notificationVisible, setNotificationVisible] = useState(false)
   const isMobile = useContext(ResponsiveContext) === 'small'
@@ -34,10 +44,13 @@ export const ManageableAccountDetails = ({ wallet }: ManageableAccountDetailsPro
     }
   }
   const hideLayer = () => {
+    dispatch(persistActions.resetPasswordCheckPass())
+    dispatch(persistActions.resetWrongPassword())
+    setPassword('')
     setAcknowledge(false)
     setLayerVisibility(false)
   }
-
+  const onSubmit = () => dispatch(persistActions.checkPasswordAsync({ currentPassword: password }))
   return (
     <>
       <Box>
@@ -76,7 +89,7 @@ export const ManageableAccountDetails = ({ wallet }: ManageableAccountDetailsPro
                     )}
                   </Text>
                 </Box>
-                {!acknowledge && (
+                {!acknowledge && !passwordCheckPass && (
                   <Button
                     alignSelf="center"
                     primary
@@ -87,7 +100,36 @@ export const ManageableAccountDetails = ({ wallet }: ManageableAccountDetailsPro
                     onClick={() => setAcknowledge(true)}
                   />
                 )}
-                {acknowledge && (
+
+                {acknowledge && !passwordCheckPass && (
+                  <Form onSubmit={onSubmit} {...preventSavingInputsToUserData}>
+                    <PasswordField
+                      placeholder={t('persist.loginToProfile.enterPasswordHere', 'Enter your password here')}
+                      name="password"
+                      inputElementId="password"
+                      autoFocus
+                      value={password}
+                      onChange={event => setPassword(event.target.value)}
+                      error={
+                        enteredWrongPassword
+                          ? t('persist.loginToProfile.wrongPassword', 'Wrong password')
+                          : false
+                      }
+                      showTip={t('persist.loginToProfile.showPassword', 'Show password')}
+                      hideTip={t('persist.loginToProfile.hidePassword', 'Hide password')}
+                      width="auto"
+                    />
+                    <Box direction="row" justify="end" margin={{ top: 'medium' }}>
+                      <Button
+                        primary
+                        type="submit"
+                        label={t('toolbar.settings.exportPrivateKey.validate', 'Validate password')}
+                      />
+                    </Box>
+                  </Form>
+                )}
+
+                {acknowledge && passwordCheckPass && (
                   <Box direction="row" gap="small">
                     <Box round="5px" border={{ color: 'brand' }} pad="small" style={{ display: 'block' }}>
                       <NoTranslate>{uintToBase64(hex2uint(wallet.privateKey!))}</NoTranslate>
