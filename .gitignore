@@ -32,3 +32,4 @@ debug*.c
 /cypress/videos/
 /.nyc_output/
 /instrumented/
+config.bat
