@@ -131,7 +131,7 @@ test.describe('My Accounts tab', () => {
     await expect(page.getByTestId('account-choice')).toHaveCount(3)
   })
 
-  test('should remove not currently selected account', async ({ page }) => {
+  test.only('should remove not currently selected account', async ({ page }) => {
     await openAccountSelectorWithMultipleItems(page)
     await page.getByText('Manage').nth(1).click()
     await page.getByText('Delete Account').click()
@@ -139,5 +139,13 @@ test.describe('My Accounts tab', () => {
     await page.getByRole('button', { name: 'Yes, delete' }).click()
     await expect(page).toHaveURL(new RegExp(`/account/${mnemonicAddress0}`))
     await expect(page.getByTestId('account-choice')).toHaveCount(3)
+    await page.setViewportSize({ width: 900, height: 800 })
+    await expect(page).toHaveScreenshot()
+    await page.setViewportSize({ width: 900, height: 600 })
+    await expect(page).toHaveScreenshot()
+    await page.setViewportSize({ width: 900, height: 300 })
+    await expect(page).toHaveScreenshot()
+    await page.setViewportSize({ width: 360, height: 600 })
+    await expect(page).toHaveScreenshot()
   })
 })
