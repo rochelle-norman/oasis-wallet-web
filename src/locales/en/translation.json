@@ -230,12 +230,12 @@
   "menu": {
     "addAccounts": "Add accounts",
     "closeWallet": "Close wallet",
-    "fiatOnramp": "Buy",
+    "fiatOnramp": "Buy ROSE",
     "home": "Home",
     "lockProfile": "Lock profile",
     "openMenu": "Menu",
     "paraTimes": "ParaTimes",
-    "stake": "Stake",
+    "stake": "Stake ROSE",
     "unlockProfile": "Unlock profile",
     "wallet": "Wallet"
   },
