@@ -51,9 +51,9 @@ export const AmountFormatter = memo(
       ? {
           size: 'xsmall',
           weight: 600,
-          color: 'lightText',
+          color: 'brand',
         }
-      : {}
+      : { color: 'brand' }
 
     return (
       <span>
