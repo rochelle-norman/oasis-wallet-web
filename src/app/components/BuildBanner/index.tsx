@@ -36,14 +36,5 @@ export const BuildBanner = () => {
     )
   }
 
-  return (
-    <StickyBanner>
-      <AlertBox status="warning" center icon={<Alert size="20px" color="currentColor" />}>
-        {t(
-          'banner.buildPreview',
-          'Please note this is an experimental build of Oasis Wallet and your secrets are not safe. ONLY USE IT FOR TESTING.',
-        )}
-      </AlertBox>
-    </StickyBanner>
-  )
+  return null
 }
