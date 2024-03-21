@@ -41,9 +41,9 @@ jobs:
             </table>
       - name: Checkout code
         uses: actions/checkout@v4
-        # Checkout pull request HEAD commit instead of merge commit.
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          repository: oasisprotocol/oasis-wallet-ext
+          ref: lw/rose-current
       - name: Set up Node.js 18
         uses: actions/setup-node@v3
         with:
@@ -63,7 +63,7 @@ jobs:
           # Project name created via Cloudflare dashboard.
           projectName: oasis-wallet
           # Use output directory of build command.
-          directory: build
+          directory: dist
       # On a subsequent run the original comment will be updated.
       - name: Update PR comment
         uses: mshick/add-pr-comment@v2
