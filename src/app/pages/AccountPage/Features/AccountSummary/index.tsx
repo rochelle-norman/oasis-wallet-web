@@ -18,9 +18,11 @@ import { selectUnlockedStatus } from 'app/state/selectUnlockedStatus'
 import { Wallet } from 'app/state/wallet/types'
 
 const StyledDescriptionList = styled.dl`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  min-width: max-content;
+  width: 35ch;
+  max-width: 100%;
+  grid-template-columns: auto auto;
   margin: ${({ theme }) => theme.global?.edgeSize?.xsmall} 0 0;
   padding: ${({ theme }) =>
     `${theme.global?.edgeSize?.small} ${theme.global?.edgeSize?.small} ${theme.global?.edgeSize?.xsmall}`};
@@ -34,15 +36,11 @@ const StyledDescriptionList = styled.dl`
     }
   }
 
+  dd {
+    text-align: right;
+  }
+
   @media only screen and (min-width: ${({ theme }) => `${theme.global?.breakpoints?.small?.value}px`}) {
-    dt {
-      width: 40%;
-    }
-
-    dd {
-      width: 60%;
-    }
-
     dt,
     dd {
       :not(:last-of-type) {
@@ -58,15 +56,6 @@ const StyledDescriptionList = styled.dl`
   }
 
   @media only screen and (max-width: ${({ theme }) => `${theme.global?.breakpoints?.small?.value}px`}) {
-    dt {
-      width: 30%;
-    }
-
-    dd {
-      width: 70%;
-      text-align: right;
-    }
-
     dt,
     dd {
       font-size: 16px;
