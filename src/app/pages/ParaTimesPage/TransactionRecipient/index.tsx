@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box } from 'grommet/es6/components/Box'
 import { Form } from 'grommet/es6/components/Form'
 import { FormField } from 'grommet/es6/components/FormField'
@@ -13,6 +13,7 @@ import { useParaTimes } from '../useParaTimes'
 import { useParaTimesNavigation } from '../useParaTimesNavigation'
 import { PasswordField } from 'app/components/PasswordField'
 import { preventSavingInputsToUserData } from 'app/lib/preventSavingInputsToUserData'
+import { EthPrivateKeyOr0x } from '../../../state/paratimes/types'
 
 export const TransactionRecipient = () => {
   const { t } = useTranslation()
@@ -30,6 +31,7 @@ export const TransactionRecipient = () => {
   } = useParaTimes()
   const { navigateToAmount } = useParaTimesNavigation()
   const addressValidator = usesOasisAddress ? isValidAddress : isValidEthAddress
+  const [ethPrivateKeyRaw, setEthPrivateKeyRaw] = useState<EthPrivateKeyOr0x>('')
 
   return (
     <ParaTimeContent
@@ -62,15 +64,18 @@ export const TransactionRecipient = () => {
     >
       <Form
         messages={{ required: t('paraTimes.validation.required', 'Field is required') }}
-        onChange={nextValue =>
+        onChange={nextValue => {
+          const ethPrivateKeyRaw =
+            typeof nextValue.ethPrivateKey === 'object'
+              ? (nextValue.ethPrivateKey as any).value // from suggestions
+              : nextValue.ethPrivateKey
+          setEthPrivateKeyRaw(ethPrivateKeyRaw) // Keep 0x prefix if user had it
+
           setTransactionForm({
             ...nextValue,
-            ethPrivateKey:
-              typeof nextValue.ethPrivateKey === 'object'
-                ? (nextValue.ethPrivateKey as any).value // from suggestions
-                : nextValue.ethPrivateKey,
+            ethPrivateKey: ethPrivateKeyRaw.replace('0x', ''),
           })
-        }
+        }}
         onSubmit={navigateToAmount}
         value={transactionForm}
         style={{ width: isMobile ? '100%' : '465px' }}
@@ -81,13 +86,13 @@ export const TransactionRecipient = () => {
             <PasswordField
               inputElementId="ethPrivateKey"
               name="ethPrivateKey"
-              validate={ethPrivateKey =>
-                !isValidEthPrivateKeyLength(ethPrivateKey)
+              validate={ethPrivateKeyRaw =>
+                !isValidEthPrivateKeyLength(ethPrivateKeyRaw)
                   ? t(
                       'paraTimes.validation.invalidEthPrivateKeyLength',
                       'Private key should be 64 characters long',
                     )
-                  : !isValidEthPrivateKey(ethPrivateKey)
+                  : !isValidEthPrivateKey(ethPrivateKeyRaw)
                   ? t(
                       'paraTimes.validation.invalidEthPrivateKey',
                       'Ethereum-compatible private key is invalid',
@@ -98,7 +103,7 @@ export const TransactionRecipient = () => {
                 'paraTimes.recipient.ethPrivateKeyPlaceholder',
                 'Enter Ethereum-compatible private key',
               )}
-              value={transactionForm.ethPrivateKey}
+              value={ethPrivateKeyRaw}
               showTip={t('openWallet.privateKey.showPrivateKey', 'Show private key')}
               hideTip={t('openWallet.privateKey.hidePrivateKey', 'Hide private key')}
               suggestions={evmAccounts.map(acc => ({ label: acc.ethAddress, value: acc.ethPrivateKey }))}
