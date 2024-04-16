@@ -7,17 +7,18 @@ import {
   toChecksumAddress,
   stripHexPrefix,
 } from '@ethereumjs/util'
+import { EthPrivateKeyOr0x } from '../state/paratimes/types'
 export { isValidAddress as isValidEthAddress, stripHexPrefix } from '@ethereumjs/util'
 
 export const hexToBuffer = (value: string): Buffer => Buffer.from(value, 'hex')
-export const isValidEthPrivateKey = (ethPrivateKey: string): boolean => {
+export const isValidEthPrivateKey = (ethPrivateKey: EthPrivateKeyOr0x): boolean => {
   try {
     return isValidPrivate(hexToBuffer(stripHexPrefix(ethPrivateKey)))
   } catch {
     return false
   }
 }
-export const isValidEthPrivateKeyLength = (ethPrivateKey: string) =>
+export const isValidEthPrivateKeyLength = (ethPrivateKey: EthPrivateKeyOr0x) =>
   stripHexPrefix(ethPrivateKey).length === 64
 export const privateToEthAddress = (ethPrivateKey: string): string =>
   toChecksumAddress(bytesToHex(privateToAddress(hexToBuffer(ethPrivateKey))))

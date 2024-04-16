@@ -17,6 +17,8 @@ export enum TransactionTypes {
   Withdraw = 'withdraw',
 }
 
+export type EthPrivateKeyOr0x = `0x${string}` | string
+
 export interface TransactionForm {
   amount: string
   confirmTransfer: boolean
