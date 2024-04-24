@@ -258,6 +258,16 @@ const grommetCustomTheme: ThemeType = {
       }
     `,
   },
+  checkBox: {
+    border: {
+      color: 'text',
+    },
+    gap: '1.5ex',
+    extend: css`
+      font-size: 14px;
+      line-height: 1.2;
+    `,
+  },
   layer: {
     /**
      * Replace 100vh with 100dvh in https://github.com/grommet/grommet/blob/9e1ef40/src/js/components/Layer/StyledLayer.js
