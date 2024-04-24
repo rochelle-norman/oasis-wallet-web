@@ -51,14 +51,6 @@ export function UnlockForm() {
         <Box direction="row-responsive" gap="large" justify="between" margin={{ top: 'medium' }}>
           <Button type="submit" label={t('persist.loginToProfile.unlock', 'Unlock')} primary />
 
-          <Button
-            label={t('persist.loginToProfile.skipUnlocking', 'Continue without the profile')}
-            onClick={() => {
-              navigate('/')
-              dispatch(persistActions.skipUnlocking())
-            }}
-            plain
-          />
         </Box>
       </Form>
       <Box direction="row" margin={{ top: 'large' }}>
