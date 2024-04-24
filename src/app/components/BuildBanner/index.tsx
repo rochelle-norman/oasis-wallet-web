@@ -14,6 +14,7 @@ const StickyBanner = styled(Box)`
 
 export const BuildBanner = () => {
   const { t } = useTranslation()
+  return null
 
   if (window.location.origin === deploys.extension) {
     return null
