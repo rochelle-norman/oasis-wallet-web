@@ -204,6 +204,9 @@ const grommetCustomTheme: ThemeType = {
       family: 'Rubik, sans-serif',
     },
   },
+  paragraph: {
+    medium: { size: '16px', height: '20px' },
+  },
   notification: {
     toast: {
       time: 2000,
