@@ -27,6 +27,7 @@ import { selectShowAccountsSelectionModal } from 'app/state/importaccounts/selec
 import { createWalletActions } from './slice'
 import { selectCheckbox, selectMnemonic } from './slice/selectors'
 import { WalletType } from 'app/state/wallet/types'
+import { Paragraph } from 'grommet/es6/components/Paragraph'
 
 export interface CreateWalletProps {}
 
@@ -64,6 +65,25 @@ export function CreateWalletPage(props: CreateWalletProps) {
   //@TODO Remove when firefox supports backdropFilter (used inside MnemonicValidation)
   // https://github.com/oasisprotocol/oasis-wallet-web/issues/287
   const blurMnemonicInFirefox = showConfirmation ? { filter: 'blur(5px)' } : {}
+
+  const mnemonicGridWrapper = (
+    <Box background="background-front" style={blurMnemonicInFirefox}>
+      <MnemonicGrid mnemonic={mnemonic.length > 0 ? mnemonic : new Array(24).fill('')} />
+      <Box margin="xsmall" pad="small" background="background-contrast" style={{ wordSpacing: '14px' }}>
+        <NoTranslate>
+          <strong data-testid="generated-mnemonic">{mnemonic.join(' ')}</strong>
+        </NoTranslate>
+        <Box direction="row" justify="start" margin={{ top: 'medium' }}>
+          <Button
+            icon={<Refresh />}
+            label={t('createWallet.newMnemonic', 'Generate a new mnemonic')}
+            primary
+            onClick={regenerateMnemonic}
+          />
+        </Box>
+      </Box>
+    </Box>
+  )
 
   return (
     <>
@@ -106,32 +126,18 @@ export function CreateWalletPage(props: CreateWalletProps) {
         />
       )}
       <Grid gap="small" pad="small" columns={size === 'small' ? ['auto'] : ['2fr', '2fr']}>
-        <Box background="background-front" style={blurMnemonicInFirefox}>
-          <MnemonicGrid mnemonic={mnemonic.length > 0 ? mnemonic : new Array(24).fill('')} />
-          <Box margin="xsmall" pad="small" background="background-contrast" style={{ wordSpacing: '14px' }}>
-            <NoTranslate>
-              <strong data-testid="generated-mnemonic">{mnemonic.join(' ')}</strong>
-            </NoTranslate>
-            <Box direction="row" justify="start" margin={{ top: 'medium' }}>
-              <Button
-                icon={<Refresh />}
-                label={t('createWallet.newMnemonic', 'Generate a new mnemonic')}
-                primary
-                onClick={regenerateMnemonic}
-              />
-            </Box>
-          </Box>
-        </Box>
+        {/* eslint-disable-next-line no-restricted-syntax -- mnemonicGridWrapper is not a string */}
+        {size !== 'small' && mnemonicGridWrapper}
         <Box pad="medium" background="background-front" round="5px">
           <Header>{t('createWallet.thisIsYourPhrase', 'This is your mnemonic')}</Header>
           <Box width="100%" justify="evenly" margin={{ vertical: 'small' }}>
-            <Text margin="0">
+            <Paragraph margin="0" fill>
               <Trans
                 i18nKey="createWallet.instruction"
                 t={t}
                 defaults="Save your keyphrase <strong>in the right order</strong> in a secure location, you will need it to open your wallet."
               ></Trans>
-            </Text>
+            </Paragraph>
           </Box>
           <AlertBox status="warning">
             {t(
@@ -139,6 +145,8 @@ export function CreateWalletPage(props: CreateWalletProps) {
               'Never share your keyphrase, anyone with your keyphrase can access your wallet and your tokens.',
             )}
           </AlertBox>
+          {/* eslint-disable-next-line no-restricted-syntax -- mnemonicGridWrapper is not a string */}
+          {size === 'small' && mnemonicGridWrapper}
           <Box pad={{ vertical: 'medium' }}>
             <CheckBox
               label={t('createWallet.confirmSaved', 'I saved my keyphrase')}
