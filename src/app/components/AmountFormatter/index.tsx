@@ -58,7 +58,7 @@ export const AmountFormatter = memo(
     const colorProps = plainTicker ? {} : { color: 'ticker' }
 
     return (
-      <span>
+      <span style={{ fontFamily: 'Roboto Mono' }}>
         <Box style={{ display: 'inline-flex', whiteSpace: 'nowrap' }}>{amountString}</Box>
         {!hideTicker && (
           <Text size={size} {...tickerProps} {...colorProps}>
