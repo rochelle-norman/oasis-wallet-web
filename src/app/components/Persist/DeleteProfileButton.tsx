@@ -50,7 +50,7 @@ export function DeleteProfileButton({ prominent, variant }: DeleteProfileButtonP
           onEsc={onCancel}
         >
           <DeleteInputForm onCancel={onCancel} onConfirm={onConfirm}>
-            <Paragraph>
+            <Paragraph fill>
               <label htmlFor="type_delete">
                 {variant === 'forgot-password' && (
                   <span>

@@ -26,7 +26,7 @@ export function UnlockForm() {
   return (
     <LoginModalLayout title={t('persist.loginToProfile.title', 'Welcome Back!')}>
       <Form onSubmit={onSubmit} {...preventSavingInputsToUserData}>
-        <Paragraph>
+        <Paragraph fill>
           <label htmlFor="password">
             {t(
               'persist.loginToProfile.description',

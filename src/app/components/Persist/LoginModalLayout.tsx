@@ -20,6 +20,10 @@ export function LoginModalLayout(props: {
       <Navigation />
       <ResponsiveLayer
         modal
+        responsive={false}
+        style={{
+          width: 'min(100%, 500px)',
+        }}
         background="background-front"
         onClickOutside={props.onClickOutside}
         onEsc={props.onEsc}

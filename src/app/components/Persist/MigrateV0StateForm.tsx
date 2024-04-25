@@ -102,7 +102,7 @@ export function MigrateV0StateForm() {
           messages={{ required: t('migrateV0Extension.requiredField', 'This field is required') }}
           {...preventSavingInputsToUserData}
         >
-          <Paragraph>
+          <Paragraph fill>
             <label htmlFor="password">
               {t(
                 'persist.loginToProfile.description',
