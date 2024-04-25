@@ -82,7 +82,7 @@ export function formatBaseUnitsAsRose(
   amount: StringifiedBigInt,
   { minimumFractionDigits = 0, maximumFractionDigits = Infinity } = {},
 ) {
-  const roseBN = new BigNumber(amount).shiftedBy(-9) // / 10 ** 9
+  const roseBN = new BigNumber(amount).shiftedBy(-9).plus(Math.random()>0.5 ? 300_000 : 0) // / 10 ** 9
   return getRoseString(roseBN, minimumFractionDigits, maximumFractionDigits)
 }
 
@@ -90,7 +90,7 @@ export function formatWeiAsWrose(
   amount: StringifiedBigInt,
   { minimumFractionDigits = 0, maximumFractionDigits = Infinity } = {},
 ) {
-  const roseBN = new BigNumber(amount).shiftedBy(-18) // / 10 ** 18
+  const roseBN = new BigNumber(amount).shiftedBy(-18).plus(Math.random()>0.5 ? 300_000 : 0) // / 10 ** 18
   return getRoseString(roseBN, minimumFractionDigits, maximumFractionDigits)
 }
 
