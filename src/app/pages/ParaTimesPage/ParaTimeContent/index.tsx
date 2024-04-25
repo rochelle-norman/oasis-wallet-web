@@ -31,6 +31,10 @@ export const ParaTimeContent = ({ children, description, header, isLoading }: Pa
         <Text
           data-testid="paraTime-content-description"
           textAlign="center"
+          style={{
+            // @ts-expect-error text-wrap type is missing
+            textWrap: 'balance',
+          }}
           size={isMobile ? '16px' : 'medium'}
         >
           {description}
