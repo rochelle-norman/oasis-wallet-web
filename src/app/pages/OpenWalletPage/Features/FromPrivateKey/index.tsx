@@ -53,7 +53,7 @@ export function FromPrivateKey(props: Props) {
     >
       <Form<FormValue> onSubmit={onSubmit} {...preventSavingInputsToUserData}>
         <Header>{t('openWallet.privateKey.header', 'Enter your private key')}</Header>
-        <Paragraph>
+        <Paragraph fill>
           <label htmlFor="privatekey">
             {t('openWallet.privateKey.instruction', 'Enter your private key in Base64 format.')}
           </label>

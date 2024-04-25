@@ -65,7 +65,7 @@ export const UpdatePassword = () => {
       onChange={nextValue => setValue(nextValue)}
       value={value}
     >
-      <Paragraph>
+      <Paragraph fill>
         <label htmlFor="password1">{t('toolbar.profile.password.title', 'Set a new password')}</label>
       </Paragraph>
       <PasswordField<FormValue>
