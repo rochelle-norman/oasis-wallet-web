@@ -12,7 +12,7 @@ export const ActiveDelegationList = () => {
   const delegations = useSelector(selectActiveDelegations)
   return (
     <Box pad="medium" background="background-front">
-      <Header>{t('delegations.activeDelegations', 'Active delegations')}</Header>
+      <Header level={2}>{t('delegations.activeDelegations', 'Active delegations')}</Header>
       <DelegationList type="active" delegations={delegations ?? []} />
     </Box>
   )

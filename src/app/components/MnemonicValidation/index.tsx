@@ -49,7 +49,7 @@ export function MnemonicValidation(props: Props) {
     >
       <Grid gap="small" pad="none" columns={size === 'small' ? '100%' : ['1fr', '1fr']}>
         <Form onSubmit={onSubmit} {...preventSavingInputsToUserData}>
-          <Header>{t('openWallet.mnemonic.header', 'Enter your keyphrase')}</Header>
+          <Header level={2}>{t('openWallet.mnemonic.header', 'Enter your keyphrase')}</Header>
           <Paragraph fill>
             {t(
               'openWallet.mnemonic.instruction',

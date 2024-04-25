@@ -108,7 +108,7 @@ export const ValidatorList = memo((props: Props) => {
 
   return (
     <Box pad="medium" background="background-front">
-      <Header>{t('common.validators', 'Validators')}</Header>
+      <Header level={2}>{t('common.validators', 'Validators')}</Header>
       {updateValidatorsError && (
         <p>
           <span>{t('account.validator.loadingError', "Couldn't load validators.")}</span>

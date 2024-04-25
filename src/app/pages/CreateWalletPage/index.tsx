@@ -129,7 +129,7 @@ export function CreateWalletPage(props: CreateWalletProps) {
         {/* eslint-disable-next-line no-restricted-syntax -- mnemonicGridWrapper is not a string */}
         {size !== 'small' && mnemonicGridWrapper}
         <Box pad="medium" background="background-front" round="5px">
-          <Header>{t('createWallet.thisIsYourPhrase', 'This is your mnemonic')}</Header>
+          <Header level={2}>{t('createWallet.thisIsYourPhrase', 'This is your mnemonic')}</Header>
           <Box width="100%" justify="evenly" margin={{ vertical: 'small' }}>
             <Paragraph margin="0" fill>
               <Trans

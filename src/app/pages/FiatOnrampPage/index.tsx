@@ -24,7 +24,7 @@ function HeaderLayout(props: { children?: React.ReactNode }) {
       background="background-front"
       pad="medium"
     >
-      <Header>{t('fiatOnramp.header', 'Buy ROSE')}</Header>
+      <Header level={2}>{t('fiatOnramp.header', 'Buy ROSE')}</Header>
       <p>
         {t(
           'fiatOnramp.description',

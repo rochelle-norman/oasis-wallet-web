@@ -12,7 +12,7 @@ export const DebondingDelegationList = () => {
   const delegations = useSelector(selectDebondingDelegations)
   return (
     <Box pad="medium" background="background-front">
-      <Header>{t('delegations.debondingDelegations', 'Debonding delegations')}</Header>
+      <Header level={2}>{t('delegations.debondingDelegations', 'Debonding delegations')}</Header>
       <DelegationList type="debonding" delegations={delegations ?? []} />
     </Box>
   )

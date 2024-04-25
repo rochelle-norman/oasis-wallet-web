@@ -48,7 +48,7 @@ export function SelectOpenMethod({ webExtensionLedgerAccess }: SelectOpenMethodP
       margin="small"
       pad="medium"
     >
-      <Header>{t('openWallet.header', 'How do you want to open your wallet?')}</Header>
+      <Header level={2}>{t('openWallet.header', 'How do you want to open your wallet?')}</Header>
 
       <Box direction="row-responsive" justify="start" margin={{ top: 'medium' }} gap="medium">
         <span>

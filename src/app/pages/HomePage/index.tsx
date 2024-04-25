@@ -21,7 +21,7 @@ export function HomePage() {
           background="background-front"
           pad="large"
         >
-          <Header>{t('home.existing.header', 'Access existing wallet')}</Header>
+          <Header level={2}>{t('home.existing.header', 'Access existing wallet')}</Header>
           <Paragraph>
             {t(
               'home.existing.description',
@@ -43,7 +43,7 @@ export function HomePage() {
           background="background-front"
           pad="large"
         >
-          <Header>{t('home.create.header', 'Create new wallet')}</Header>
+          <Header level={2}>{t('home.create.header', 'Create new wallet')}</Header>
           <Paragraph>
             {t(
               'home.create.description',

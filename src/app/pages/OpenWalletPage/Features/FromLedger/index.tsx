@@ -23,7 +23,7 @@ export function FromLedger() {
       round="5px"
       border={{ color: 'background-front-border', size: '1px' }}
     >
-      <Header>{t('openWallet.ledger.header', 'Open from Ledger device')}</Header>
+      <Header level={2}>{t('openWallet.ledger.header', 'Open from Ledger device')}</Header>
 
       <Heading level="3" margin="0">
         {t('ledger.instructionSteps.header', 'Steps:')}

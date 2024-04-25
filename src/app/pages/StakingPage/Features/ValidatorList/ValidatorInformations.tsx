@@ -35,7 +35,7 @@ export const ValidatorInformations = (props: ValidatorProps) => {
         gap={isMobile ? 'none' : 'medium'}
       >
         {validator.name && (
-          <Header level="2" margin={{ bottom: 'none', top: 'none' }} data-testid="validator-item-name">
+          <Header level="3" margin={{ bottom: 'none', top: 'none' }} data-testid="validator-item-name">
             {validator.name}
           </Header>
         )}
