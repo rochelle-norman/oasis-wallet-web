@@ -481,7 +481,7 @@ export function Transaction(props: TransactionProps) {
           </Text>
           <Text
             color={transaction.status ? 'successful-label' : 'status-error'}
-            size={isMobile ? 'xsmall' : 'small'}
+            size="small"
             weight="bold"
           >
             {transaction.status ? (
