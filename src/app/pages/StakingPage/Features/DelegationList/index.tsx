@@ -111,6 +111,7 @@ export const DelegationList = memo((props: Props) => {
           : t('delegations.reclaimedAmount', 'Amount to reclaim'),
       id: 'amount',
       selector: 'amount',
+      width: '34ex',
       cell: datum => datum.amount && <AmountFormatter amount={datum.amount} />,
       sortable: true,
       sortFunction: (row1, row2) => Number(BigInt(row1.amount) - BigInt(row2.amount)),
@@ -138,7 +139,7 @@ export const DelegationList = memo((props: Props) => {
 
   const columns =
     type === 'active'
-      ? [columnTypes.icon, columnTypes.status, columnTypes.name, columnTypes.amount, columnTypes.fee]
+      ? [columnTypes.icon, columnTypes.status, columnTypes.name, columnTypes.amount]
       : [columnTypes.icon, columnTypes.name, columnTypes.amount, columnTypes.debondingTimeEnd]
 
   const defaultSortField: undefined | keyof DebondingDelegation = type === 'active' ? undefined : 'epoch'
