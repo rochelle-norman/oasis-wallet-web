@@ -60,6 +60,7 @@ type TransactionDictionary = {
 
 const StyledCardBody = styled(CardBody)`
   flex-direction: row;
+  justify-content: space-between;
 
   @media only screen and (min-width: ${({ theme }) =>
       // TODO: extend theme global breakpoints with more breakpoints or at least with 1024px. Requires Sidebar refactor and Grommet lib validation
@@ -422,7 +423,7 @@ export function Transaction(props: TransactionProps) {
         </Text>
       </CardHeader>
       <StyledCardBody margin={{ bottom: 'small' }}>
-        <Box width="75%">
+        <Box>
           {isMobile && (
             <Box pad={{ left: 'small' }}>
               <Text size="16px" margin={{ bottom: 'xsmall' }}>
@@ -437,7 +438,7 @@ export function Transaction(props: TransactionProps) {
           )}
 
           {!isMobile && (
-            <Grid columns={{ count: 'fit', size: 'xsmall' }} gap="none">
+            <Grid columns={{ count: 2, size: 'max-content' }} width="max-content" gap="none">
               <Box pad="none">
                 <InfoBox copyToClipboardValue={otherAddress} icon={ContactInfo} label={destination}>
                   {otherAddress ? (
@@ -475,14 +476,20 @@ export function Transaction(props: TransactionProps) {
             </Grid>
           )}
         </Box>
-        <Box width="25%" align="end" pad={{ right: 'small' }} margin={{ top: 'xsmall' }}>
-          <Text weight="bold" size={isMobile ? 'medium' : 'xlarge'}>
+        <Box pad={{ right: 'small' }}>
+          <Text
+            weight="bold"
+            size={isMobile ? 'medium' : 'xlarge'}
+            margin={{ bottom: 'xsmall' }}
+            textAlign="end"
+          >
             <AmountFormatter amount={transaction.amount!} smallTicker />
           </Text>
           <Text
             color={transaction.status ? 'successful-label' : 'status-error'}
             size="small"
             weight="bold"
+            textAlign="end"
           >
             {transaction.status ? (
               <span>{t('account.transaction.successful', 'Successful')}</span>
