@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { StringifiedBigInt } from 'types/StringifiedBigInt'
 import { TransactionStatus } from '../TransactionStatus'
 import { selectTicker } from '../../state/network/selectors'
+import { AmountFormatter } from '../AmountFormatter'
 
 interface Props {
   /** Currently delegated amount */
@@ -109,6 +110,12 @@ export const ReclaimEscrowForm = memo((props: Props) => {
             }
             reverse
           />
+          <Box align="end">
+            <Text weight="bolder" size="small">
+              <span>{t('paraTimes.amount.available', 'Available:')} </span>
+              <AmountFormatter amount={props.maxAmount} smallTicker />
+            </Text>
+          </Box>
         </Box>
         <Box direction="row" gap="medium">
           <Box fill={isMobile}>
