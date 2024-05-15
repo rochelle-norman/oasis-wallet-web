@@ -61,6 +61,9 @@ export function ChoosePasswordFields() {
 
           <FormField
             name="profileStorageUndependableAcknowledge"
+            validate={(value: boolean) =>
+              value ? undefined : t('persist.createProfile.requiredField', 'This field is required')
+            }
             contentProps={{
               border: false,
               pad: 'none',
@@ -69,7 +72,6 @@ export function ChoosePasswordFields() {
           >
             <CheckBox
               name="profileStorageUndependableAcknowledge"
-              required
               label={
                 <Paragraph size="small" fill>
                   {t(
